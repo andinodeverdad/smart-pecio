@@ -34,7 +34,28 @@ function makeLevelTwo(k){
  return shuffle([{a:'●',q:'Which shape has no corners?',h:'Look for the round shape.',e:'A circle is round and has no corners.'},{a:'▲',q:'Which shape has three corners?',h:'Count the pointy corners on each shape.',e:'A triangle has three corners and three sides.'},{a:'■',q:'Which shape has four equal sides?',h:'Look for four straight sides that are all the same length.',e:'A square has four equal sides.'},{a:'★',q:'Which shape has five points?',h:'Count the tips around the outside.',e:'This star has five points.'},{a:'♥',q:'Which shape has two round bumps at the top?',h:'Look for two bumps and one point at the bottom.',e:'The heart has two round bumps and a point at the bottom.'}]).map(x=>({prompt:x.q,view:[],answer:x.a,options:shuffle([x.a,...shuffle(['●','▲','■','★','♥'].filter(v=>v!==x.a)).slice(0,2)]),hint:x.h,explain:x.e}));
 }
 
-function setLevel(n){level=[1,2,3].includes(Number(n))?Number(n):1;$('#level-select').value=String(level);try{localStorage.setItem('pecio-level',String(level))}catch{}}
+const activityPreviews={
+ 1:{
+  patterns:{art:'🌷 🌼 🌷 ?',label:'Flowers taking turns in a pattern',description:'What comes next? Find the rhythm.'},
+  odd:{art:'🍓 🍓 🥕',label:'Two strawberries and a carrot',description:"Spot the one that's different."},
+  count:{art:'🐞 1 2 3',label:'Count ladybugs from one to five',description:'Little numbers, lovely discoveries.'},
+  shapes:{art:'● ▲ ■',label:'A circle, triangle, and square',description:'Find a shape. Follow your curiosity.'}
+ },
+ 2:{
+  patterns:{art:'🦋 🦋 🐞 ?',label:'Butterflies and a ladybug in a repeating group',description:'Find the repeating group.'},
+  odd:{art:'🍎 🍐 🚗',label:'Fruit and a car from a different group',description:'Which picture belongs somewhere else?'},
+  count:{art:'🐢 6 7 8',label:'Count turtles from six to ten',description:'Keep counting, all the way to ten.'},
+  shapes:{art:'▲ 3 ●',label:'Match shapes to their corners',description:'Look at sides, corners, and points.'}
+ },
+ 3:{
+  patterns:{art:'🚀 🪐 ☄️ ?',label:'A rocket, planet, and comet in a new pattern',description:'Space, ocean, and music patterns await.'},
+  odd:{art:'🎹 🎻 🪥',label:'Musical instruments and a toothbrush',description:'What does each object do?'},
+  count:{art:'🐚 🪨 🐚',label:'Count seashells among rocks',description:'Count one kind. Skip the others.'},
+  shapes:{art:'🪁 📱 📐',label:'A kite, phone, and triangular ruler',description:'Discover shapes in everyday objects.'}
+ }
+};
+function updateActivityPreviews(){for(const [key,preview] of Object.entries(activityPreviews[level])){const art=document.querySelector(`[data-game="${key}"] .card-art`);const description=document.querySelector(`[data-game="${key}"] p`);if(art){art.textContent=preview.art;art.setAttribute('role','img');art.setAttribute('aria-label',preview.label)}if(description)description.textContent=preview.description}}
+function setLevel(n){level=[1,2,3].includes(Number(n))?Number(n):1;$('#level-select').value=String(level);updateActivityPreviews();try{localStorage.setItem('pecio-level',String(level))}catch{}}
 $('#level-select').onchange=e=>setLevel(e.target.value);
 try{setLevel(localStorage.getItem('pecio-level'))}catch{setLevel(1)}
 
