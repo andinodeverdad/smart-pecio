@@ -1,6 +1,6 @@
 # Smart Pecio
 
-A playful browser app for little learners with two levels of patterns, counting, sorting, and shape puzzles. Recorded female narration and Pecio's girl-voice introduction accompany gentle hints and unlimited retries.
+A playful browser app for little learners with three levels of patterns, counting, sorting, and shape puzzles. Recorded female narration and Pecio's girl-voice introduction accompany gentle hints and unlimited retries.
 
 Open https://andinodeverdad.github.io/smart-pecio/ to play. Tap **Sound on** to hear the narration. Progress is saved locally in the current browser, with no child account, ads, or analytics.
 
